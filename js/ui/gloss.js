@@ -83,7 +83,7 @@ export function rawWithTerms(raw, termKeys, glossary) {
     term.setAttribute('tabindex', '0');
     term.setAttribute('aria-expanded', 'false');
     const toggle = (e) => {
-      e.stopPropagation(); // 不要順便觸發整列的點擊（點亮那一盞燈）
+      e.stopPropagation(); // 不要順便觸發整列的點擊（種下那一顆種子）
       if (open === term) { close(); return; }
       close();
       note.textContent = '';
