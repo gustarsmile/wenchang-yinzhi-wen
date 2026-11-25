@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="45%" r="60%">
+      <stop offset="0" stop-color="#fffbe0"/>
+      <stop offset="0.6" stop-color="#f6e3a0"/>
+      <stop offset="1" stop-color="#e0bd5c"/>
+    </radialGradient>
+  </defs>
+  <!-- 朱紅的底、鎏金的圓、土裡冒出的一株新芽 -->
+  <rect width="64" height="64" rx="14" fill="#6a1f15"/>
+  <circle cx="32" cy="31" r="21" fill="url(#glow)" stroke="#d6b256" stroke-width="1.5"/>
+  <path d="M32 45 V27" stroke="#3f9b56" stroke-width="3" stroke-linecap="round"/>
+  <path d="M32 29 C20 29 16 21 16 15 C26 15 32 20 32 29 Z" fill="#3f9b56"/>
+  <path d="M32 29 C44 29 48 21 48 15 C38 15 32 20 32 29 Z" fill="#62bd72"/>
+  <path d="M18 46 Q32 40 46 46 Q40 52 32 52 Q24 52 18 46 Z" fill="#8a5a2b"/>
+</svg>

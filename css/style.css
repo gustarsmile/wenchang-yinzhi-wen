@@ -1,0 +1,480 @@
+/* 主題：春天的福田
+   朱紅棗紅 --deep（廟宇彩繪的紅）、青綠 --jade（新芽）、宣紙 --paper、鎏金 --gold。
+   種子：還沒種下是土裡的一顆籽，種下了冒出兩片葉子（善行＝綠芽，十勿＝青藍的芽，典故＝金色的芽） */
+:root {
+  color-scheme: light;
+  --deep-900: #3a120c;
+  --deep-800: #6a1f15;
+  --deep-700: #8c2e1e;
+  --deep-500: #b9573a;
+  --jade: #2c8a63;
+  --jade-soft: #dff1e6;
+  --paper: #fcf8ec;
+  --paper-3: #ece2c6;
+  --line: #dccfa8;
+  --ink: #23263a;
+  --ink-2: #51556b;
+  --ink-3: #7d8196;
+  --gold: #94700f;
+  --gold-2: #d6b256;
+  --gold-3: #f3e3a8;
+  --coral: #b84f3b;
+  --serif: "Noto Serif TC", "Songti TC", "PMingLiU", "MingLiU", serif;
+  --sans: system-ui, -apple-system, "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  --lamp-gold: radial-gradient(circle at 50% 42%, #fffbe0, #ffe08a 42%, #f4a93b 78%, #c8701c);
+  --lamp-silver: radial-gradient(circle at 50% 42%, #ffffff, #e6eeff 42%, #a9bdf0 78%, #6a82cf);
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: radial-gradient(120% 80% at 50% 0%, #3a3684 0%, var(--deep-800) 45%, var(--deep-900) 100%) fixed;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  position: relative;
+  max-width: 560px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #fdfaf0, #f8f1de);
+  box-shadow: 0 0 0 1px rgba(214, 178, 86, 0.35), 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+:focus-visible { outline: 3px solid var(--gold-2); outline-offset: 2px; }
+
+h1, h2, h3, p, blockquote, figure { margin: 0; }
+
+/* ── 頂列 ── */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  height: 50px;
+  padding: 0 8px;
+  background: var(--deep-800);
+  border-bottom: 2px solid var(--gold-2);
+  color: #fbf3d9;
+}
+.topbar button {
+  min-height: 44px;
+  padding: 6px 8px;
+  white-space: nowrap;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+.topbar .tb-title { font-family: var(--serif); font-size: 1.05rem; letter-spacing: 0.15em; color: var(--gold-3); }
+@media (max-width: 350px) {
+  .topbar button { padding: 6px 5px; font-size: 0.86rem; }
+  .topbar .tb-title { font-size: 0.98rem; letter-spacing: 0.08em; }
+}
+.tb-lamps { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.tb-lamps::before { content: ""; width: 13px; height: 13px; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #f0fadf, #8fd07c 55%, #3f9b56); box-shadow: 0 0 6px rgba(143, 208, 124, 0.85); }
+
+/* ── 版面 ── */
+.view { padding: 22px 20px 56px; }
+.page h1 { font-family: var(--serif); font-size: 2rem; line-height: 1.4; letter-spacing: 0.12em; color: var(--deep-800); }
+.page h1:focus, .page h1:focus-visible { outline: none; } /* 換頁時程式會把焦點放到標題上，不是使用者按出來的 */
+h2 { font-family: var(--serif); font-size: 1.2rem; letter-spacing: 0.2em; color: var(--deep-700); }
+.ch-kicker { margin-bottom: 4px; font-size: 0.85rem; letter-spacing: 0.15em; color: var(--gold); }
+.ch-sub { margin: 2px 0 16px; font-size: 1.05rem; color: var(--ink-2); }
+.lead { margin-bottom: 22px; color: var(--ink-2); }
+.hint { margin: 8px 0 12px; font-size: 0.86rem; color: var(--ink-3); }
+
+.art-frame {
+  aspect-ratio: 3 / 2;
+  margin-bottom: 16px;
+  overflow: hidden;
+  border: 1px solid var(--gold-2);
+  border-radius: 12px;
+  background: var(--paper-3);
+  box-shadow: 0 6px 18px rgba(74, 26, 16, 0.18);
+}
+.art-frame img, .cover-art img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.art-missing { display: none; }
+
+/* 包著插圖的按鈕：點了放大。右下角一個小小的放大鏡，讓手機上的人知道可以點 */
+.zoom-btn { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.zoom-btn:focus-visible { outline-offset: -4px; }
+.zoom-btn::after {
+  content: "";
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(16, 18, 51, 0.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f3e3a8' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cpath d='M15.5 15.5 21 21M10.5 7.8v5.4M7.8 10.5h5.4'/%3E%3C/svg%3E") center / 16px no-repeat;
+  pointer-events: none;
+}
+
+/* ── 按鈕 ── */
+.btn {
+  min-height: 44px;
+  padding: 9px 18px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--deep-700);
+  font: inherit;
+  font-size: 0.98rem;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.btn.primary { border-color: var(--gold-2); background: var(--deep-700); color: #fdf6df; }
+.btn.small { min-height: 34px; padding: 4px 13px; font-size: 0.85rem; }
+.btn.danger { border-color: var(--coral); color: var(--coral); }
+.btn:disabled { opacity: 0.6; cursor: default; }
+.link { padding: 6px 4px; border: 0; background: none; color: var(--deep-500); font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+/* ── 封面 ── */
+.cover { margin: -22px -20px -56px; }
+.cover-art { aspect-ratio: 3 / 2; overflow: hidden; background: var(--deep-800); border-bottom: 2px solid var(--gold-2); }
+.cover-body { padding: 26px 24px 44px; text-align: center; }
+.cover-kicker { margin-bottom: 8px; font-size: 0.85rem; letter-spacing: 0.4em; color: var(--gold); }
+/* 書名七個字要排在同一行（拆成兩行會剩一個「文」字）：字級跟著螢幕寬度縮放，不准斷行 */
+.cover h1 { padding-left: 0.16em; font-size: clamp(1.7rem, 7.6vw, 2.3rem); letter-spacing: 0.16em; white-space: nowrap; }
+.cover-by { margin: 8px 0 18px; font-size: 0.86rem; letter-spacing: 0.08em; color: var(--ink-3); }
+.cover-intro { max-width: 26em; margin: 0 auto 24px; text-align: left; color: var(--ink-2); }
+.cover-actions { display: grid; gap: 10px; max-width: 340px; margin: 0 auto 14px; }
+.cover-progress { margin-bottom: 4px; font-size: 0.9rem; color: var(--gold); }
+.cover-links { display: flex; justify-content: center; gap: 16px; margin-top: 8px; }
+.embed-note { max-width: 26em; margin: 4px auto 10px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; background: #fff; font-size: 0.88rem; color: var(--ink-2); }
+.embed-note a { color: var(--deep-500); text-underline-offset: 3px; }
+
+/* ── 經文 ── */
+.sec-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 8px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.sec-head h2 { flex: none; } /* 「經文」兩個字不折行；空間不夠時是右邊的按鈕折成兩列 */
+.sec-tools { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.passage { margin-bottom: 22px; }
+.raw-line { font-family: var(--serif); font-size: 1.22rem; line-height: 2.05; letter-spacing: 0.05em; color: #1d2033; }
+.plain {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-left: 3px solid var(--jade);
+  border-radius: 0 8px 8px 0;
+  background: rgba(47, 127, 179, 0.09);
+  font-size: 0.98rem;
+  line-height: 1.8;
+  color: var(--ink-2);
+}
+.term {
+  border-bottom: 2px dotted var(--gold-2);
+  border-radius: 2px;
+  cursor: pointer;
+  -webkit-user-select: text;
+  user-select: text;
+  -webkit-tap-highlight-color: rgba(214, 178, 86, 0.3);
+}
+.term[aria-expanded="true"] { background: var(--gold-3); }
+
+/* ── 注音（「注音：開」時，js/ui/gloss.js）：課本那種直式注音，排在每個字的右邊 ──
+   <ruby>字<rt><span class="zy-col"><span>ㄋ</span><span>ㄧ</span></span><span class="zy-tone">ˇ</span></rt></ruby>
+   不用 ruby-position: inter-character（Chrome 不支援），整組自己排：
+   字還是行內的普通文字，右邊用 padding 空出一欄；rt 絕對定位，貼在那一欄裡、相對於字垂直置中。
+   這樣注音不佔行內的位置，斷行規則和沒有注音時一樣：字和它的注音拆不開，標點也不會跑到行首
+   （試過把一組做成 inline-flex 的小盒子，Chrome 會在盒子和後面的逗號之間斷行）。
+   rt 裡左邊一欄是由上往下疊的符號，右邊一小格放調號。內文照常由左到右排下去。 */
+/* padding 是注音欄的寬度（1.4 × 0.34em）＋左右各一點間隔。
+   nowrap 不能少：少了它，行尾放得下字、放不下那一欄時，Chrome 會把字留在這一行、把注音甩到下一行的開頭 */
+.raw ruby { display: inline; position: relative; padding-right: 0.66em; white-space: nowrap; }
+.raw rt {
+  position: absolute;
+  top: 50%;
+  right: 0.3em;                 /* 這裡的 em 是注音的字級：調號和下一個字之間留一點空 */
+  transform: translateY(-50%);
+  width: 1.4em;                 /* 一欄符號（1em）＋調號（0.4em）。每個字都留一樣寬，字距才整齊 */
+  font-family: var(--sans);     /* 系統內建的黑體都有注音符號，不載任何外部字型 */
+  font-size: 0.34em;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--ink-2);
+  -webkit-user-select: none;    /* 選取、複製原文時不要把注音也帶走 */
+  user-select: none;
+}
+.zy-col { display: flex; flex-direction: column; align-items: center; width: 1em; }
+.zy-col span { display: block; height: 1em; }
+.zy-col .zy-dot { height: 0.5em; line-height: 0.6; }  /* 輕聲的點：在這一欄的最上面，只佔半格 */
+/* 調號：貼著最後一個符號的右上方（從注音欄的底往上算，最後一個符號就是最底下那一格）。
+   字型裡的調號畫得很小，而且縮在自己那一格的上半部，所以放大、加粗，再往下挪一點 */
+.zy-tone { position: absolute; left: 0.2em; bottom: -0.12em; font-size: 1.6em; font-weight: 700; line-height: 1; }
+.zhuyin-copy rt { display: none; } /* 複製的那一刻用（js/ui/chapterView.js）：取選取的文字時不要被注音欄切成一字一行 */
+/* 開注音時字放大一點（注音只有字的三分之一大，字太小就看不清楚）；字距歸零（每個字右邊已經有一欄注音） */
+.zhuyin-on .raw-line, .zhuyin-on .lamp-row .raw-line { font-size: 1.5rem; line-height: 1.9; letter-spacing: 0; }
+.gloss-note {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--gold-2);
+  border-radius: 10px;
+  background: #fff7d6;
+  font-size: 0.93rem;
+  line-height: 1.7;
+}
+.gloss-note strong { font-family: var(--serif); color: var(--gold); }
+
+/* ── 清單標頭 ── */
+/* 第一列：名目（左）＋已種下幾顆（右）；第二列：說明，整列寬 */
+.list-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--deep-800);
+  color: #fbf3d9;
+}
+.list-name { font-family: var(--serif); font-size: 1.15rem; letter-spacing: 0.15em; color: var(--gold-3); }
+.list-note { grid-column: 1 / -1; grid-row: 2; font-size: 0.9rem; opacity: 0.92; }
+.lamp-count { grid-column: 2; grid-row: 1; font-size: 0.88rem; color: var(--gold-3); white-space: nowrap; }
+
+/* ── 種子：一列一顆，點了才發芽、才顯示白話（類別名沿用《太上感應篇》那本的 lamp） ── */
+.lamp-group { margin: 22px 0 2px; font-size: 0.9rem; letter-spacing: 0.1em; color: var(--gold); }
+.lamp-list { margin: 0; padding: 0; list-style: none; }
+.lamp-row { display: flex; align-items: flex-start; gap: 12px; padding: 12px 4px; border-bottom: 1px dashed var(--line); cursor: pointer; }
+.lamp-row.lit { cursor: default; }
+.lamp-body { flex: 1; min-width: 0; }
+.lamp-row .raw-line { font-size: 1.15rem; line-height: 1.9; }
+/* 還沒種下：一圈虛線的土坑，裡面一顆褐色的籽 */
+.lamp {
+  --leaf-1: #3f9b56;
+  --leaf-2: #62bd72;
+  --sprout-ring: #6fb37c;
+  --sprout-glow: 111, 179, 124;
+  --sprout-bg: radial-gradient(circle at 50% 35%, #f7fcec, #dcf0c8 70%, #c3e2ab);
+  position: relative;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  margin: 8px 0 4px;
+  padding: 0;
+  border: 1.5px dashed #b39c6c;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 60%, #f1e7cd, #e2d2a9);
+  cursor: pointer;
+  transition: box-shadow 0.4s;
+}
+.lamp::before, .lamp::after { content: ""; position: absolute; }
+.lamp::before { left: 50%; top: 50%; width: 9px; height: 13px; margin: -6px 0 0 -5px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; background: #8a5a2b; transform: rotate(18deg); }
+.lamp::after { display: none; }
+/* 種下了：一根莖、兩片葉子。左葉、右葉各是一個斜角的方塊，葉柄在圓心會合；莖用背景畫 */
+.lamp.lit {
+  border: 1.5px solid var(--sprout-ring);
+  background: linear-gradient(var(--leaf-1), var(--leaf-1)) 50% 19px / 2px 8px no-repeat, var(--sprout-bg);
+  box-shadow: 0 0 0 3px rgba(var(--sprout-glow), 0.2), 0 0 12px rgba(var(--sprout-glow), 0.65);
+  cursor: default;
+}
+.lamp.lit::before { left: 50%; top: 8px; width: 11px; height: 11px; margin: 0 0 0 -11px; border-radius: 0 100% 0 100%; background: var(--leaf-1); transform: none; }
+.lamp.lit::after { display: block; left: 50%; top: 8px; width: 11px; height: 11px; border-radius: 100% 0 100% 0; background: var(--leaf-2); }
+/* 十勿：青藍的芽（守住一條）；四個典故：金色的芽（一個故事） */
+.tone-guard .lamp { --leaf-1: #2b8a9c; --leaf-2: #55b3c2; --sprout-ring: #7cc0cc; --sprout-glow: 85, 179, 194; --sprout-bg: radial-gradient(circle at 50% 35%, #f1fbfc, #d3eef2 70%, #b5dfe6); }
+.tone-story .lamp { --leaf-1: #c9891a; --leaf-2: #efb93c; --sprout-ring: var(--gold-2); --sprout-glow: 244, 169, 59; --sprout-bg: radial-gradient(circle at 50% 35%, #fffdf0, #fbefc4 70%, #f3dc93); }
+.lamp.pop { animation: pop 0.5s ease-out; }
+
+/* ── 典故的故事（第 2 頁）：跟著白話一起出現 ── */
+.story { margin-top: 10px; padding: 12px 14px; border: 1px solid var(--gold-2); border-radius: 12px; background: #fffbea; }
+.story-title { margin: 0; font-family: var(--serif); font-size: 1.12rem; letter-spacing: 0.12em; color: var(--deep-800); }
+.story-who { margin: 2px 0 8px; font-size: 0.85rem; color: var(--ink-3); }
+.story .story-art { margin: 8px 0 10px; }
+.story-text { line-height: 1.9; }
+.story-source { margin-top: 8px; font-size: 0.82rem; color: var(--ink-3); }
+@keyframes pop { 0% { transform: scale(0.7); } 60% { transform: scale(1.2); } 100% { transform: scale(1); } }
+.lamps-done, .match-done {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--gold-2);
+  border-radius: 10px;
+  background: linear-gradient(135deg, #fff7d6, #f6e7b0);
+  color: #57420d;
+}
+.collation { margin-top: 6px; font-size: 0.86rem; color: var(--ink-3); }
+
+/* ── 全篇十一段一覽（第一頁） ── */
+.overview { margin-top: 30px; }
+.overview-group { margin: 16px 0 8px; font-size: 0.9rem; letter-spacing: 0.06em; color: var(--gold); }
+.overview-chips { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+.overview-chip { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.chip-name { font-family: var(--serif); font-size: 1.1rem; letter-spacing: 0.1em; color: var(--deep-800); }
+.chip-sub, .chip-progress { font-size: 0.8rem; color: var(--ink-3); }
+.chip-progress.done { color: var(--jade); font-weight: 600; }
+
+/* ── 情境題 ── */
+.scenario, .cta { margin-top: 30px; padding: 18px 16px; border: 1px solid var(--line); border-radius: 14px; background: #fff; box-shadow: 0 4px 14px rgba(74, 26, 16, 0.08); }
+.scenario h2 { margin-bottom: 10px; }
+.prompt { margin-bottom: 14px; font-size: 1.05rem; }
+.options { display: grid; gap: 10px; }
+.option { padding: 12px 14px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--paper); color: var(--ink); font: inherit; line-height: 1.6; text-align: left; cursor: pointer; }
+.option.chosen { border-color: var(--jade); background: var(--jade-soft); }
+.reply { margin-top: 14px; padding: 12px 14px; border-radius: 10px; background: var(--deep-800); color: #f6f1dc; line-height: 1.8; }
+.scenario .hint { margin-bottom: 0; }
+.cta { text-align: center; border-color: var(--gold-2); }
+.cta p { margin-bottom: 14px; color: var(--ink-2); }
+
+.takeaway { margin: 30px 0 0; padding: 16px 10px; border-top: 1px solid var(--gold-2); border-bottom: 1px solid var(--gold-2); font-family: var(--serif); font-size: 1.15rem; letter-spacing: 0.06em; text-align: center; color: var(--deep-700); }
+
+.pager { display: flex; justify-content: space-between; gap: 12px; margin-top: 28px; }
+.pager-next { margin-left: auto; }
+
+/* ── 目錄 ── */
+.toc-section { margin: 22px 0 8px; font-family: var(--sans); font-size: 0.85rem; letter-spacing: 0.2em; color: var(--gold); }
+.toc-row { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 58px; margin-bottom: 8px; padding: 9px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.toc-no { flex: 0 0 2em; font-family: var(--serif); font-size: 1.05rem; text-align: center; color: var(--gold); }
+.toc-text { display: flex; flex: 1; flex-direction: column; min-width: 0; }
+.toc-title { font-family: var(--serif); font-size: 1.12rem; letter-spacing: 0.1em; color: var(--deep-800); }
+.toc-sub { font-size: 0.85rem; color: var(--ink-3); }
+.toc-mark { font-size: 0.82rem; color: var(--ink-3); white-space: nowrap; }
+.toc-mark.done { color: var(--jade); font-weight: 600; }
+
+/* ── 古今對照 ── */
+.match-sub.match-now { font-size: 0.9rem; line-height: 1.5; color: var(--ink); }
+.match-msg { min-height: 1.75em; margin: 6px 0; font-size: 0.95rem; text-align: center; color: var(--deep-700); }
+.match-board { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px 0 16px; }
+.match-col { display: grid; align-content: start; gap: 8px; }
+.match-item { display: flex; flex-direction: column; justify-content: center; min-height: 54px; padding: 6px; border: 1.5px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink); font: inherit; line-height: 1.3; text-align: center; cursor: pointer; }
+/* 左欄的原文最長七個字（點夜燈以照人行），手機上半欄寬要排得下一行 */
+.match-name { font-family: var(--serif); font-size: clamp(0.9rem, 4.3vw, 1.05rem); letter-spacing: 0.03em; color: var(--deep-800); }
+.match-sub { font-size: 0.75rem; color: var(--ink-3); }
+.match-item.selected { border-color: var(--gold); background: #fff7d6; box-shadow: 0 0 0 3px rgba(214, 178, 86, 0.25); }
+.match-item.matched { border-color: var(--jade); background: var(--jade-soft); cursor: default; }
+.match-item.shake { animation: shake 0.35s; }
+@keyframes shake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+/* ── 我的福田：一幅畫蓋著 3 列 × 4 欄、共十二塊還沒開的田 ── */
+.land-frame { position: relative; aspect-ratio: 3 / 2; margin: 12px 0; overflow: hidden; border: 1px solid var(--gold-2); border-radius: 12px; box-shadow: 0 8px 22px rgba(74, 26, 16, 0.2); }
+.land-frame img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+.land-frame .zoom-btn { position: absolute; top: 0; left: 0; }
+.land-frame.art-missing { display: block; background: var(--paper-3); } /* 蓋過 .art-missing 的隱藏：田的格子還要能點 */
+.land-frame.art-missing img { visibility: hidden; }
+.land-grid { position: absolute; top: 0; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 1fr); }
+.land-tile { padding: 0; border: 0; box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.28); background: transparent; color: #f3e3a8; font-family: var(--serif); font-size: clamp(0.72rem, 3.6vw, 0.95rem); letter-spacing: 0.04em; white-space: nowrap; cursor: pointer; }
+/* 還沒開的田：翻過的褐色泥土，上面幾道斜斜的田壟 */
+.land-tile.soil { background: repeating-linear-gradient(168deg, rgba(60, 34, 14, 0) 0 9px, rgba(60, 34, 14, 0.3) 9px 11px), radial-gradient(120% 90% at 30% 20%, rgba(176, 132, 84, 0.98), rgba(134, 92, 52, 0.98) 55%, rgba(98, 64, 36, 0.98)); text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); }
+.land-tile.clear { cursor: default; opacity: 1; }
+.land-tile:focus-visible { outline-offset: -4px; }
+.land-count { font-weight: 600; text-align: center; color: var(--deep-700); }
+.land-complete { margin: 16px 0; padding: 16px; border: 1px solid var(--gold-2); border-radius: 12px; background: #fff; }
+.land-thanks { margin-top: 12px; color: var(--ink-2); }
+.land-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 22px; }
+.land .hint { text-align: center; }
+
+/* ── 時時方便（每日三件小事） ── */
+.daily-date { margin: 2px 0 14px; color: var(--ink-3); }
+.daily-quote { margin-bottom: 12px; padding: 12px 14px; border-left: 3px solid var(--gold-2); border-radius: 0 10px 10px 0; background: #fffbea; font-family: var(--serif); font-size: 1.1rem; line-height: 1.95; letter-spacing: 0.05em; }
+.daily-list { margin: 0 0 14px; padding: 0; list-style: none; }
+.daily-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 4px; border-bottom: 1px dashed var(--line); cursor: pointer; }
+.daily-item input { flex: 0 0 26px; width: 26px; height: 26px; margin: 3px 0 0; accent-color: var(--jade); }
+.daily-text { display: flex; flex-direction: column; }
+.daily-name { font-family: var(--serif); font-size: 1.1rem; letter-spacing: 0.1em; color: var(--deep-800); }
+.daily-ask { font-size: 0.95rem; color: var(--ink-2); }
+.daily-count { margin: 8px 0 2px; font-size: 1.15rem; font-weight: 600; text-align: center; color: var(--deep-700); }
+.daily-closing { margin-bottom: 22px; text-align: center; color: var(--ink-2); }
+.daily-week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin: 10px 0; }
+.daily-day { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 0; border: 1px solid var(--line); border-radius: 10px; background: #fff; font-size: 0.82rem; color: var(--ink-3); }
+.daily-day.today { border-color: var(--gold-2); box-shadow: 0 0 0 2px rgba(214, 178, 86, 0.2); }
+.daily-dot { width: 28px; height: 28px; border-radius: 50%; background: var(--paper-3); font-size: 0.85rem; line-height: 28px; text-align: center; }
+.daily-day.has .daily-dot { background: var(--lamp-gold); color: #4a2c08; font-weight: 700; }
+.daily-streak { min-height: 1.5em; text-align: center; color: var(--gold); }
+.daily-sum { margin: 14px 0 6px; padding: 14px 16px; border: 1px solid var(--gold-2); border-radius: 12px; background: #fffbea; text-align: center; }
+.daily-total { font-family: var(--serif); font-size: 1.25rem; letter-spacing: 0.1em; color: var(--deep-700); }
+.daily-sum-note { margin-top: 6px; font-size: 0.9rem; line-height: 1.75; text-align: left; color: var(--ink-2); }
+.daily .hint { text-align: center; }
+
+/* ── 關於本書 ── */
+.about-sec { margin-top: 26px; }
+.about-sec h2 { margin-bottom: 10px; font-size: 1.1rem; letter-spacing: 0.08em; }
+.about-sec p, .about-sec li { margin-bottom: 8px; font-size: 0.97rem; color: var(--ink-2); }
+.about-sec a { color: var(--deep-500); text-underline-offset: 3px; }
+.about-links { margin: 0; padding-left: 1.4em; }
+.about-links li { font-size: 0.92rem; }
+.about-sec .hint { margin: 4px 0 10px; font-size: 0.86rem; color: var(--ink-3); }
+
+.boot, .load-error { padding: 72px 24px; text-align: center; color: var(--ink-2); }
+.load-error h1 { margin-bottom: 12px; font-family: var(--serif); font-size: 1.4rem; color: var(--deep-800); }
+.load-error p { margin-bottom: 16px; }
+
+/* ── 大圖檢視（點圖放大，js/ui/lightbox.js）。底色固定是黑的，顏色直接寫死 ── */
+#lightbox {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50; /* 高於頂列的 10 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.92);
+  cursor: zoom-out;
+  opacity: 0;
+  visibility: hidden;
+  /* 關閉：先淡出，0.18 秒後才真的隱藏 */
+  transition: opacity 0.18s ease, visibility 0s linear 0.18s;
+}
+/* 開啟：visibility 立刻生效（不能有過渡），程式才能馬上把焦點移到關閉鈕上 */
+#lightbox.open { opacity: 1; visibility: visible; transition: opacity 0.18s ease, visibility 0s; }
+.lightbox-img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 4px; } /* 完整的圖，不裁切 */
+.lightbox-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #8a7020;
+  border-radius: 50%;
+  background: rgba(16, 18, 51, 0.85);
+  color: #e6c466;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.lightbox-hint { position: absolute; right: 0; bottom: 16px; left: 0; font-size: 0.8rem; text-align: center; color: #cbbc9c; }
+
+/* ── 寬螢幕：左圖右文 ── */
+@media (min-width: 1000px) {
+  #app { max-width: 1120px; }
+  .view { padding: 36px 44px 72px; }
+  .chapter { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 44px; align-items: start; }
+  .cover { display: grid; grid-template-columns: 1.25fr 1fr; align-items: center; min-height: 100dvh; margin: -36px -44px -72px; }
+  .cover-art { height: 100%; aspect-ratio: auto; border-right: 2px solid var(--gold-2); border-bottom: 0; }
+  .toc, .match, .land, .daily, .about { max-width: 660px; margin: 0 auto; }
+}
+
+/* 舊瀏覽器沒有 aspect-ratio：「我的福田」的圖是絕對定位，沒有高度會整個塌掉，用 padding 撐出 3:2 */
+@supports not (aspect-ratio: 1) {
+  .land-frame::before { content: ""; display: block; padding-top: 66.667%; }
+  .art-frame img, .cover-art img { height: auto; }
+}
+
+/* 左欄（章名、插圖、導讀）跟著捲動固定住——視窗要夠高才這樣做，不然導讀的下半段會一直被切在畫面外 */
+@media (min-width: 1000px) and (min-height: 700px) {
+  .ch-side { position: sticky; top: 76px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lamp.pop, .match-item.shake { animation: none; }
+  .lamp, #lightbox { transition: none; }
+}
