@@ -57,7 +57,7 @@ export function pages(chapters) {
   return out;
 }
 
-// 封面（''）的下一頁是第一頁；不在頁序裡的頁（目錄、時時方便…）沒有上下頁
+// 封面（''）的下一頁是第一頁；不在頁序裡的頁（目錄、每日種福…）沒有上下頁
 export function nextRoute(chapters, route) {
   const list = pages(chapters);
   if (route === '') return list[0];

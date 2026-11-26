@@ -182,7 +182,7 @@ describe('鍵盤翻頁', () => {
   });
 });
 
-describe('時時方便放著過夜', () => {
+describe('每日種福放著過夜', () => {
   it('跨過午夜後打勾：畫面換成新的一天，只有剛勾的那一項，昨天的紀錄還在', () => {
     app.go('daily');
     $$('.daily-item input')[0].click();
@@ -207,7 +207,7 @@ describe('時時方便放著過夜', () => {
     expect(daily.countToday()).toBe(0);
     expect(daily.history(2)[0]).toEqual({ key: '2026-11-18', count: 1 });
   });
-  it('分頁切回來時（visibilitychange），時時方便會換成今天', () => {
+  it('分頁切回來時（visibilitychange），每日種福會換成今天', () => {
     app.go('daily');
     $$('.daily-item input')[0].click();
     now = new Date(2026, 10, 19, 7, 30);

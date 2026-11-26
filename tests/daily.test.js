@@ -22,7 +22,7 @@ describe('dateKey 用本地日期', () => {
   });
 });
 
-describe('時時方便', () => {
+describe('每日種福', () => {
   it('一開始三項都沒勾', () => {
     const d = createDaily(memoryStorage(), clock(2026, 11, 18));
     expect(d.today()).toEqual([false, false, false]);
@@ -212,7 +212,7 @@ describe('set(i, value)：直接指定勾或不勾', () => {
   });
 });
 
-describe('同時開兩個分頁（時時方便）', () => {
+describe('同時開兩個分頁（每日種福）', () => {
   it('兩邊各勾各的，不會互相蓋掉', () => {
     const storage = memoryStorage();
     const now = clock(2026, 11, 18);

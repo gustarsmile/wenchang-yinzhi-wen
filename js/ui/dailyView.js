@@ -4,13 +4,13 @@ const WEEK = ['日', '一', '二', '三', '四', '五', '六'];
 // 'YYYY-MM-DD' → 本地日期（不要用 new Date(key)，那會被當成 UTC）
 const toDate = (key) => { const [y, m, d] = key.split('-').map(Number); return new Date(y, m - 1, d); };
 
-// 時時方便：利人、利物、陰功，每天三件小事的自我檢核。文字在 js/data/daily.json。
+// 每日種福：利人、利物、陰功，每天三件小事的自我檢核。文字在 js/data/daily.json。
 export function renderDaily(root, ctx) {
   const { book, daily, go } = ctx;
   const data = book.daily;
   const items = data.items.length;
   const page = el('section', 'page daily');
-  append(page, el('p', 'ch-kicker', '把這一篇帶回生活'), el('h1', null, '時時方便'));
+  append(page, el('p', 'ch-kicker', '把這一篇帶回生活'), el('h1', null, '每日種福'));
 
   // 這個畫面是為「哪一天」畫的。分頁放著過夜之後，這一天就不是今天了
   const shownKey = daily.todayKey();

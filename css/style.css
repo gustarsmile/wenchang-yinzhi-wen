@@ -379,7 +379,7 @@ h2 { font-family: var(--serif); font-size: 1.2rem; letter-spacing: 0.2em; color:
 .land-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 22px; }
 .land .hint { text-align: center; }
 
-/* ── 時時方便（每日三件小事） ── */
+/* ── 每日種福（每日三件小事） ── */
 .daily-date { margin: 2px 0 14px; color: var(--ink-3); }
 .daily-quote { margin-bottom: 12px; padding: 12px 14px; border-left: 3px solid var(--gold-2); border-radius: 0 10px 10px 0; background: #fffbea; font-family: var(--serif); font-size: 1.1rem; line-height: 1.95; letter-spacing: 0.05em; }
 .daily-list { margin: 0 0 14px; padding: 0; list-style: none; }

@@ -39,7 +39,7 @@ export function renderToc(root, ctx) {
   list.appendChild(el('h2', 'toc-section', '其他'));
   const extras = [
     ['land', '我的福田', `已開 ${store.plotsDone(book.chapters)}／${plotCount(book.chapters)} 塊田`],
-    ['daily', '時時方便', '利人、利物、陰功，每天一分鐘'],
+    ['daily', '每日種福', '利人、利物、陰功，每天一分鐘'],
     ['about', '關於本書', '底本、註解依據與流通'],
   ];
   for (const [route, title, sub] of extras) {

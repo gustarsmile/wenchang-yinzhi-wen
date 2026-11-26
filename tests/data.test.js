@@ -223,7 +223,7 @@ describe('註解', () => {
   });
 });
 
-describe('時時方便', () => {
+describe('每日種福', () => {
   it('三項，各有名稱與一句提問：利人、利物、陰功（都是第 3 頁〈心地福田〉原文裡的詞）', () => {
     expect(daily.items).toHaveLength(3);
     expect(daily.items.map((it) => it.name)).toEqual(['利人', '利物', '陰功']);

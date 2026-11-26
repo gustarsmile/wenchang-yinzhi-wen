@@ -13,7 +13,7 @@ import { renderLand } from './ui/landView.js';
 import { renderDaily } from './ui/dailyView.js';
 import { renderAbout } from './ui/aboutView.js';
 
-const FIXED_TITLES = { toc: '目錄', match: '古今對照', land: '我的福田', daily: '時時方便', about: '關於本書' };
+const FIXED_TITLES = { toc: '目錄', match: '古今對照', land: '我的福田', daily: '每日種福', about: '關於本書' };
 
 // 滑動翻頁的門檻
 const SWIPE_MIN_X = 90;      // 水平至少滑這麼多
@@ -87,7 +87,7 @@ export function createApp({
     view.textContent = '';
     topbar.hidden = r.name === 'cover';
 
-    // 記下讀到哪：只記「書頁」（各頁、古今對照、我的福田），目錄和時時方便不算
+    // 記下讀到哪：只記「書頁」（各頁、古今對照、我的福田），目錄和每日種福不算
     if (order.includes(r.route)) store.setLast(r.route);
     if (r.name === 'ch') store.markSeen(book.chapters[r.no - 1].id);
 
@@ -205,7 +205,7 @@ export function createApp({
   };
   win.addEventListener('storage', onStorage);
 
-  // 分頁切回來：資料更新成最新的；時時方便可能已經跨日，整頁重畫成今天
+  // 分頁切回來：資料更新成最新的；每日種福可能已經跨日，整頁重畫成今天
   const onVisible = () => {
     if (doc.visibilityState === 'hidden') return;
     store.refresh();

@@ -55,7 +55,7 @@ export function renderCover(root, ctx) {
   append(
     links,
     button('目錄', 'link', () => go('toc')),
-    button('時時方便', 'link', () => go('daily')),
+    button('每日種福', 'link', () => go('daily')),
     button('關於本書', 'link', () => go('about')),
   );
   body.appendChild(links);

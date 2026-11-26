@@ -1,4 +1,4 @@
-// 時時方便：利人、利物、陰功，每天三項自我檢核。紀錄以「本地日期」為鍵，只存在瀏覽器裡。
+// 每日種福：利人、利物、陰功，每天三項自我檢核。紀錄以「本地日期」為鍵，只存在瀏覽器裡。
 import { DAILY_KEY } from './config.js';
 import { resolveStorage, tryRead, writeJson, isPlainObject } from './storage.js';
 

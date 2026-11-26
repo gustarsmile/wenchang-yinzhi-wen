@@ -132,8 +132,8 @@ describe('封面', () => {
     expect($('.cover-progress').textContent).toContain('種子 0／60');
     expect($('.cover-progress').textContent).toContain('福田 1／12');
   });
-  it('下面有目錄、時時方便、關於本書三個連結', () => {
-    expect(texts('.cover-links button')).toEqual(['目錄', '時時方便', '關於本書']);
+  it('下面有目錄、每日種福、關於本書三個連結', () => {
+    expect(texts('.cover-links button')).toEqual(['目錄', '每日種福', '關於本書']);
     $$('.cover-links button')[1].click();
     expect(window.location.hash).toBe('#/daily');
   });
@@ -859,9 +859,9 @@ describe('我的福田', () => {
     expect($$('.land-tile.soil')[0].textContent).toBe('心地福田');
     expect($('.land-complete').hidden).toBe(true);
   });
-  it('下面有前往「時時方便」和目錄的按鈕；上一頁是第 11 頁〈結語〉，沒有下一頁', () => {
+  it('下面有前往「每日種福」和目錄的按鈕；上一頁是第 11 頁〈結語〉，沒有下一頁', () => {
     app.go('land');
-    expect(texts('.land-actions button')).toEqual(['時時方便', '目錄']);
+    expect(texts('.land-actions button')).toEqual(['每日種福', '目錄']);
     expect($('[data-action="next"]')).toBeNull();
     expect($('[data-action="prev"]').textContent).toBe('‹ 結語');
     $('[data-action="prev"]').click();
@@ -872,10 +872,10 @@ describe('我的福田', () => {
   });
 });
 
-describe('時時方便', () => {
+describe('每日種福', () => {
   it('三項，勾一項計數變 1／3', () => {
     app.go('daily');
-    expect($('.daily h1').textContent).toBe('時時方便');
+    expect($('.daily h1').textContent).toBe('每日種福');
     const boxes = $$('.daily-item input[type="checkbox"]');
     expect(boxes).toHaveLength(3);
     expect(texts('.daily-name')).toEqual(book.daily.items.map((it) => it.name));
@@ -944,11 +944,11 @@ describe('目錄與關於', () => {
   it('目錄列出十一頁與其他頁，點了會過去', () => {
     app.go('toc');
     expect($$('.toc-chapter')).toHaveLength(11);
-    for (const s of ['古今對照', '我的福田', '時時方便', '關於本書']) expect(text(), s).toContain(s);
-    expect(texts('.toc-row .toc-title')).toEqual([...PLOT_NAMES, '我的福田', '時時方便', '關於本書']);
+    for (const s of ['古今對照', '我的福田', '每日種福', '關於本書']) expect(text(), s).toContain(s);
+    expect(texts('.toc-row .toc-title')).toEqual([...PLOT_NAMES, '我的福田', '每日種福', '關於本書']);
     $$('.toc-chapter')[6].click();
     expect(window.location.hash).toBe('#/ch/7');
-    for (const [title, route] of [['我的福田', 'land'], ['時時方便', 'daily'], ['關於本書', 'about']]) {
+    for (const [title, route] of [['我的福田', 'land'], ['每日種福', 'daily'], ['關於本書', 'about']]) {
       app.go('toc');
       $$('.toc-row').find((row) => row.querySelector('.toc-title').textContent === title).click();
       expect(window.location.hash, title).toBe(`#/${route}`);
@@ -1067,7 +1067,7 @@ describe('目錄與關於', () => {
       expect(text()).toMatch(/Google Analytics[^。]*不包含/);
     });
   }
-  it('清除進度要按兩次才生效；時時方便的紀錄會留著', () => {
+  it('清除進度要按兩次才生效；每日種福的紀錄會留著', () => {
     store.lightLamp('ch05', 0);
     store.setMatchDone();
     daily.set(0, true);
@@ -1082,17 +1082,17 @@ describe('目錄與關於', () => {
     expect(store.plotsDone(book.chapters)).toBe(0);
     expect($('.tb-lamps').textContent).toBe('種子 0／60');
     expect(daily.countToday()).toBe(1);
-    expect(text()).toContain('「時時方便」的紀錄會留著');
+    expect(text()).toContain('「每日種福」的紀錄會留著');
     expect(text()).toContain('全書 60 顆');
   });
 });
 
 describe('整本書的用語', () => {
   // 這本書是從《太上感應篇》那本改過來的：燈改成種子、章改成段，「善惡對照／轉禍為福／每日三善」
-  // 改成「古今對照／我的福田／時時方便」。畫面上（含 aria-label、分頁標題）不該再出現那一本的說法。
+  // 改成「古今對照／我的福田／每日種福」。畫面上（含 aria-label、分頁標題）不該再出現那一本的說法。
   // 規則寫的是那一本畫面上實際用過的句型，不會誤傷原文和白話（例如「點夜燈」「一盞燈」）
   const LEFTOVER = [
-    /烏雲/, /轉禍為福/, /善惡對照/, /每日三善/, /圓滿/,
+    /烏雲/, /轉禍為福/, /善惡對照/, /每日三善/, /圓滿/, /時時方便/, // 時時方便是這本的舊名（2026-11-26 改成每日種福）
     /燈 \d+／\d+/, /已點亮/, /第 \d+ 盞燈/, /等你點亮的燈/, /的燈全部點亮了/,
     /第[一二三四五六七八九十]+章/, /這一章/, /全篇十章/, /累積 \d+ 善/, /：\d+ 善/,
   ];
@@ -1114,7 +1114,7 @@ describe('整本書的用語', () => {
   it('剛開始讀的時候，每一頁都沒有那一本的用語', () => {
     scan('剛開始');
   });
-  it('全部讀完之後（種子種完、配對完成、時時方便勾過），每一頁也沒有', () => {
+  it('全部讀完之後（種子種完、配對完成、每日種福勾過），每一頁也沒有', () => {
     finishChapters();
     store.setMatchDone();
     daily.set(0, true);

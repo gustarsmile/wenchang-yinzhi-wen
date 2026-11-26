@@ -207,7 +207,7 @@ describe('注音開關', () => {
     expect($$('.sutra ruby').every((r) => r.closest('.raw'))).toBe(true);
   });
 
-  it('不是章節的頁面（封面、目錄、古今對照、我的福田、時時方便、關於）沒有開關，也沒有注音', () => {
+  it('不是章節的頁面（封面、目錄、古今對照、我的福田、每日種福、關於）沒有開關，也沒有注音', () => {
     app.go('ch/1');
     toggle().click();
     for (const route of ['', 'toc', 'match', 'land', 'daily', 'about']) {

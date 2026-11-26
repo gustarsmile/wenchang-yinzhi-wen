@@ -85,20 +85,20 @@ describe('換頁時送 page_view', () => {
     expect(pageViews().map((p) => p.page_location)).toEqual(nos.map((no) => pageViewUrl(window.location, `ch/${no}`)));
     expect(new Set(pageViews().map((p) => p.page_location)).size).toBe(11);
   });
-  it('不是書頁的頁面也各有標題：目錄、古今對照、我的福田、時時方便、關於本書', () => {
+  it('不是書頁的頁面也各有標題：目錄、古今對照、我的福田、每日種福、關於本書', () => {
     boot();
     for (const route of ['toc', 'match', 'land', 'daily', 'about']) app.go(route);
     expect(pageViews().map((p) => p.page_title)).toEqual(
-      ['目錄', '古今對照', '我的福田', '時時方便', '關於本書'].map((name) => `${name}｜文昌帝君陰騭文`),
+      ['目錄', '古今對照', '我的福田', '每日種福', '關於本書'].map((name) => `${name}｜文昌帝君陰騭文`),
     );
   });
-  it('同一頁重畫（例如時時方便跨日時整頁換成今天）不重複送', () => {
+  it('同一頁重畫（例如每日種福跨日時整頁換成今天）不重複送', () => {
     boot();
     app.go('daily');
     app.go('daily');
     app.render();
     expect(pageViews()).toHaveLength(1);
-    expect(pageViews()[0].page_title).toBe('時時方便｜文昌帝君陰騭文');
+    expect(pageViews()[0].page_title).toBe('每日種福｜文昌帝君陰騭文');
   });
   it('瀏覽器上一頁（hashchange）也算一次換頁', () => {
     boot({ hash: '#/ch/5' });

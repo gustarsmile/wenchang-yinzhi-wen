@@ -58,7 +58,7 @@ export function renderLand(root, ctx) {
   if (complete.hidden) page.appendChild(el('p', 'hint', '把一段的種子全部種下，那一塊田就會開花；沒有種子的段，讀過就算；「古今對照」配對完成也開一塊。點還沒開的田，可以前往那一頁。'));
 
   const actions = el('div', 'land-actions');
-  append(actions, button('時時方便', 'btn primary', () => go('daily')), button('目錄', 'btn', () => go('toc')));
+  append(actions, button('每日種福', 'btn primary', () => go('daily')), button('目錄', 'btn', () => go('toc')));
   page.appendChild(actions);
 
   const nav = el('nav', 'pager');
