@@ -75,7 +75,7 @@ describe('書裡實際顯示的讀音', () => {
     expect(shown('一十七世')).toBe('ㄧ ㄕˊ ㄑㄧ ㄕˋ');
   });
 
-  it('十處人工判斷（不讀辭典列的第一個讀音）', () => {
+  it('十一處人工判斷（不讀辭典列的第一個讀音）', () => {
     expect(shown('救人之難')).toBe('ㄐㄧㄡˋ ㄖㄣˊ ㄓ ㄋㄢˋ');
     expect(shown('中狀元')).toBe('ㄓㄨㄥˋ ㄓㄨㄤˋ ㄩㄢˊ');
     expect(shown('宰相')).toBe('ㄗㄞˇ ㄒㄧㄤˋ');
@@ -86,7 +86,8 @@ describe('書裡實際顯示的讀音', () => {
     expect(shown('暴露')).toBe('ㄆㄨˋ ㄌㄨˋ'); // 兩部辭典的詞條都是這個讀音
     expect(shown('本分')).toBe('ㄅㄣˇ ㄈㄣˋ');
     expect(shown('德行')).toBe('ㄉㄜˊ ㄒㄧㄥˋ');
-    expect(Object.keys(zhuyin.phrases)).toHaveLength(10);
+    expect(shown('蒼穹')).toBe('ㄘㄤ ㄑㄩㄥˊ'); // 《重編》的又音；《簡編本》只有ㄑㄩㄥ。2026-11-26 書的主人定的
+    expect(Object.keys(zhuyin.phrases)).toHaveLength(11);
   });
 
   it('照第一個讀音、但容易想成別的音的幾處', () => {
