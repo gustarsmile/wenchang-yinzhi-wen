@@ -33,7 +33,7 @@ export const COVER_ALT = '文昌帝君手持金色如意，站在五彩祥雲上
 
 // 正文底本資訊（顯示在封面與「關於本書」）
 export const SOURCE = {
-  byline: '道教勸善文・相傳文昌帝君所說',
+  byline: '道教勸善文・託名文昌帝君',
   chars: 636,
   base: '維基文庫《文昌帝君陰騭文》（通行本）',
   baseUrl: 'https://zh.wikisource.org/wiki/文昌帝君陰騭文',
