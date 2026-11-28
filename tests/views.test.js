@@ -397,7 +397,7 @@ describe('種子', () => {
   it('清單的性質（tone）決定樣式和上面那句提示：典故、善行、〈十勿〉各不相同', () => {
     const at = (no) => { app.go(`ch/${no}`); return { list: $('.lamps').classList, hint: $('.lamps > .hint').textContent }; };
     expect(at(2).list.contains('tone-story')).toBe(true);
-    expect(at(2).hint).toBe('點一下，看白話和完整的故事，種下一顆種子。');
+    expect(at(2).hint).toBe('每一句底下就是它的故事。點一下那一句，看白話，種下一顆種子。');
     for (const no of [5, 6, 7, 9, 10]) {
       expect(at(no).list.contains('tone-good'), `第 ${no} 頁`).toBe(true);
       expect(at(no).hint, `第 ${no} 頁`).toBe('點一下，看白話，種下一顆種子。');
@@ -410,7 +410,7 @@ describe('種子', () => {
 describe('四個典故的故事', () => {
   const items = lampList(book.chapters[1]).items;
 
-  it('第 2 頁每一列底下有一則故事，種下那一顆才跟著白話一起出現：標題、人物、插圖、故事、出處', () => {
+  it('第 2 頁每一列底下有一則故事，一打開就看得到（白話還是種下才出現）：標題、人物、插圖、故事、出處', () => {
     app.go('ch/2');
     expect(items).toHaveLength(4);
     expect($$('.lamp-row .plain').every((p) => p.hidden)).toBe(true);
@@ -418,7 +418,9 @@ describe('四個典故的故事', () => {
       const row = $$('.lamp-row')[i];
       const box = row.querySelector('.story');
       expect(box, item.raw).toBeTruthy();
-      expect(row.querySelector('.plain').contains(box), item.raw).toBe(true); // 在白話那一塊裡面，沒種下就看不到
+      expect(row.querySelector('.plain').contains(box), item.raw).toBe(false); // 在白話那一塊外面，沒種下也看得到
+      expect(box.closest('[hidden]'), item.raw).toBeNull();
+      expect(store.isLit('ch02', i), item.raw).toBe(false);
       row.querySelector('.lamp').click();
       expect(row.querySelector('.plain').hidden, item.raw).toBe(false);
       expect(row.querySelector('.plain p').textContent, item.raw).toBe(item.plain);
@@ -432,14 +434,18 @@ describe('四個典故的故事', () => {
     });
     expect($$('.story')).toHaveLength(4);
   });
-  it('一列裡的順序是：白話 → 故事 → 補充說明', () => {
+  it('一列裡的順序是：原文 → 白話與補充說明（點了才出現）→ 故事（一直看得到）', () => {
     boot({ book: sample });
     app.go(`ch/${SAMPLE.no}`);
     const row = $$('.lamp-row')[SAMPLE.noteRow];
     row.querySelector('.lamp').click();
-    const parts = [...row.querySelector('.plain').children];
-    expect(parts.map((n) => n.className)).toEqual(['', 'story', 'collation']);
-    expect(parts[0].textContent).toBe(SAMPLE.rowPlain(SAMPLE.noteRow));
+    const plainParts = [...row.querySelector('.plain').children];
+    expect(plainParts.map((n) => n.className)).toEqual(['', 'collation']);
+    expect(plainParts[0].textContent).toBe(SAMPLE.rowPlain(SAMPLE.noteRow));
+    expect(plainParts[1].textContent).toBe(SAMPLE.note);
+    const body = [...row.querySelector('.lamp-body').children].map((n) => n.className);
+    expect(body.indexOf('story')).toBe(body.indexOf('plain') + 1);
+    const parts = [null, row.querySelector('.story')];
     expect([...parts[1].children].map((n) => n.className)).toEqual(['story-title', 'story-who', 'art-frame story-art', 'story-text', 'story-source']);
     expect(parts[1].querySelector('.story-title').textContent).toBe(SAMPLE.story.title);
     expect(parts[1].querySelector('.story-who').textContent).toBe(SAMPLE.story.who);
@@ -447,7 +453,6 @@ describe('四個典故的故事', () => {
     expect(parts[1].querySelector('.story-source').textContent).toBe('出處：樣本出處');
     expect(parts[1].querySelector('img').getAttribute('src')).toBe(`assets/art/${SAMPLE.story.art}`);
     expect(parts[1].querySelector('img').getAttribute('alt')).toBe(SAMPLE.story.alt);
-    expect(parts[2].textContent).toBe(SAMPLE.note);
   });
   it('沒有故事的列不會多出空的故事框', () => {
     boot({ book: sample });

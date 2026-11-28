@@ -309,6 +309,19 @@ describe('點一列時，不要誤觸', () => {
     expect(light).not.toHaveBeenCalled();
     expect(row.querySelector('.plain').hidden).toBe(false);
   });
+  it('故事卡一開始就看得到；還沒種下時讀故事、點故事插圖放大，都不會順便種下', () => {
+    app.go('ch/2');
+    const row = $$('.lamp-row')[0];
+    expect(row.querySelector('.plain').hidden).toBe(true);
+    const light = vi.spyOn(store, 'lightLamp');
+    for (const sel of ['.story-title', '.story-who', '.story-text', '.story-source']) row.querySelector(sel).click();
+    const zoom = row.querySelector('.story .zoom-btn');
+    expect(zoom).toBeTruthy();
+    zoom.click();
+    expect(light).not.toHaveBeenCalled();
+    expect(store.isLit('ch02', 0)).toBe(false);
+    expect(row.querySelector('.plain').hidden).toBe(true);
+  });
   it('點難詞、點打開的註解，都不會順便種下那顆種子', () => {
     boot({ book: sample });
     app.go(`ch/${SAMPLE.no}`);

@@ -31,13 +31,13 @@ const PART_GIST = [
 const LIST_HINT = {
   good: '點一下，看白話，種下一顆種子。',
   guard: '點一下，看白話，種下一顆種子：看清一件不該做的事、守住它，心地就乾淨一分。',
-  story: '點一下，看白話和完整的故事，種下一顆種子。',
+  story: '每一句底下就是它的故事。點一下那一句，看白話，種下一顆種子。',
 };
 
 // 整列都可以點，但這兩種情況不算「點這一列」：
-// 點在已經展開的白話或註解上（人家在讀）、或是正在拖曳選取文字（想複製原文）
+// 點在已經展開的白話、註解或故事卡上（人家在讀）、或是正在拖曳選取文字（想複製原文）
 function isReading(e) {
-  if (e.target?.closest?.('.plain, .gloss-note')) return true;
+  if (e.target?.closest?.('.plain, .gloss-note, .story')) return true;
   return String(globalThis.getSelection?.() ?? '') !== '';
 }
 
@@ -52,7 +52,8 @@ function passageBlock(block, glossary, plainNodes, raws) {
   return box;
 }
 
-// 典故背後的完整故事（第 2 頁）：標題、人物、插圖、故事、出處。跟著白話一起，點了才出現
+// 典故背後的完整故事（第 2 頁）：標題、人物、插圖、故事、出處。
+// 一打開那一頁就看得到，不必先點（2026-11-28 書的主人要的）；白話和補充說明還是點了那一句才出現
 function storyBox(story) {
   const box = el('div', 'story');
   append(
@@ -110,8 +111,8 @@ function lampsBlock(block, ch, ctx, raws) {
     raws.push({ raw: item.raw, setReadings });
     const plain = el('div', 'plain');
     plain.appendChild(el('p', null, item.plain));
-    if (item.story) plain.appendChild(storyBox(item.story));
     if (item.note) plain.appendChild(el('p', 'collation', item.note));
+    const story = item.story ? storyBox(item.story) : null; // 放在白話外面，一直看得到
 
     const show = (lit) => {
       lamp.classList.toggle('lit', lit);
@@ -134,7 +135,7 @@ function lampsBlock(block, ch, ctx, raws) {
     lamp.addEventListener('click', (e) => { e.stopPropagation(); light(); });
     row.addEventListener('click', (e) => { if (!isReading(e)) light(); });
 
-    append(row, lamp, append(el('div', 'lamp-body'), append(el('p', 'raw-line'), node), note, plain));
+    append(row, lamp, append(el('div', 'lamp-body'), append(el('p', 'raw-line'), node), note, plain, story));
     list.appendChild(row);
   });
 
